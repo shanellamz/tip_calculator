@@ -1,3 +1,4 @@
+// tip_calculator app
 import 'package:flutter/material.dart';
 
 void main() => runApp(const TipApp());
