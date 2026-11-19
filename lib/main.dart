@@ -36,6 +36,7 @@ class TipPage extends StatefulWidget {
 class _TipPageState extends State<TipPage> {
   final TextEditingController _billController = TextEditingController();
   int _percent = 15;
+  int _people = 1;
 
   @override
   void dispose() {
@@ -80,6 +81,22 @@ class _TipPageState extends State<TipPage> {
                 setState(() => _percent = selection.first);
               },
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Split between'),
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed:
+                      _people > 1 ? () => setState(() => _people--) : null,
+                ),
+                Text('$_people'),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => setState(() => _people++),
+                ),
+              ],
+            ),
             const SizedBox(height: 24),
             if (result == null)
               const Text('Enter a valid amount')
@@ -90,6 +107,10 @@ class _TipPageState extends State<TipPage> {
               ),
               Text(
                 'Total: ${result.total.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                'Per person: ${(result.total / _people).toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
